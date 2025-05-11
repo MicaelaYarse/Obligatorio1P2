@@ -6,22 +6,41 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    internal class Pasaje
-    {
-        private int _idPasaje = ultId++;
+
+        public class Pasaje
+        {
+            static int ultId = 0;
+            private int _idPasaje;
         private Vuelo _vuelo;
-        private DateOnly _fecha;
+        private DateTime _fecha;
         private Cliente _pasajero;
         private decimal _precio;
-        static int ultId = 0;
-        public Pasaje()
+        private TipoEquipaje _tipoEquipaje;
+       
+
+        public Pasaje(Vuelo vuelo, DateTime fecha, Cliente pasajero, TipoEquipaje equipaje)
         {
-            
+            // Generar ID autoincremental
+            ultId++;
+            _idPasaje = ultId;
+            _vuelo = vuelo;
+            _fecha = fecha;
+            _pasajero = pasajero;
+            _tipoEquipaje = equipaje;
+            _precio = CalcularPrecio();
+        }
+        public void Validar()
+        {
+           
+
         }
         // Costo base = costo x asiento
         // costo base + 25% margen ganancias + 10% equipaje cabina o 20% equipaje bodega.
         // Clientes premium solo pagan 5% por equipaje bodega
         // Se debe tener en cuenta tasas aeroportuarias
-      
+        public override bool Equals(object? obj)
+        {
+            return obj is Pasaje otroPasaje && _idPasaje == otroPasaje._idPasaje;
+        }
     }
 }

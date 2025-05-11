@@ -16,6 +16,10 @@ namespace Dominio
             TieneRegalo = tieneRegalo;
         }
 
+        public override void Validar()
+        {
+            base.Validar();
+        }
         public override string ObtenerDescripcion()
         {
             string regalo = TieneRegalo ? "Sí" : "No";

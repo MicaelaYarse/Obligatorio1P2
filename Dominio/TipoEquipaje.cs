@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    internal enum TipoEquipaje
+    public enum TipoEquipaje
     {
-        LIGHT = 0,
-        CABINA = 1,
-        BODEGA = 2
+        LIGHT,
+        CABINA ,
+        BODEGA 
     }
 }

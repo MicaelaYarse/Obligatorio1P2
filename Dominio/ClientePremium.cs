@@ -15,7 +15,13 @@ namespace Dominio
         {
             _saldoPuntos = saldo;
         }
+        public override void Validar()
+        {
+            base.Validar();
+            if (_saldoPuntos<0)
+                throw new Exception("El número de puntos no puede ser negativo");
 
+        }
         public override string ObtenerDescripcion()
         {
             return base.ObtenerDescripcion() + $" - Tipo: Premium - Saldo ${_saldoPuntos}";

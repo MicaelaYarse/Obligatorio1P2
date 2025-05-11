@@ -15,6 +15,10 @@ namespace Dominio
         {
             get { return _correo; }
         }
+         public string Contrasenia
+        {
+            get { return _contrasenia; }
+        }
 
         public Usuario(string correo, string contrasenia)
         {
