@@ -50,26 +50,57 @@ namespace Dominio
             PrecargarAdministradores();
             PrecargarAviones();
             PrecargarAeropuertosYRutas();
-            PrecargarVuelos();
+            //PrecargarVuelos();
             PrecargarPasajes();
 
 
         }
 
+        private List<Vuelo> BuscadorVuelos(string codigoIATA)
+        {
+            List<Vuelo> vuelosRelacionados = new List<Vuelo>();
+            foreach (Vuelo vuelo in _vuelos)
+            {
+                Ruta ruta = vuelo.Ruta;
+                if(ruta != null)
+                {
+                    if(ruta.AeropuertoSalida.CodigoIATA == codigoIATA || ruta.AeropuertoLlegada.CodigoIATA == codigoIATA)
+                    {
+                        vuelosRelacionados.Add(vuelo);
+                    }
+                }
+            }
+            return vuelosRelacionados;
+        }
+
+
         private void PrecargarClientes()
         {
             // Clientes Premium
-            AltaCliente(new ClientePremium("juan.perez@gmail.com", "Ju@nP2025!", "1234567-5", "Juan Pérez", "Uruguaya", 1500));
-            AltaCliente(new ClientePremium("maria.lopez@hotmail.com", "M@rL0p3z#", "2345678-2", "María López", "Argentina", 2350));
-            AltaCliente(new ClientePremium("rodrigo.martinez@yahoo.com", "R0dr!g0Mtz", "3456789-4", "Rodrigo Martínez", "Chilena", 980));
-            AltaCliente(new ClientePremium("andrea.gomez@gmail.com", "AndGm#2025", "4567890-9", "Andrea Gómez", "Paraguaya", 1720));
-            AltaCliente(new ClientePremium("felipe.torres@outlook.com", "F3l1p3_T!", "5678901-1", "Felipe Torres", "Brasileña", 3000));
+            ClientePremium clienteP1 = new ClientePremium("1234567-5", "Juan Pérez", "juan.perez@gmail.com", "Ju@nP2025!", "Uruguaya", 1500);
+            ClientePremium clienteP2 = new ClientePremium("2345678-2", "María López", "maria.lopez@hotmail.com", "M@rL0p3z#", "Argentina", 2350);
+            ClientePremium clienteP3 = new ClientePremium("3456789-4", "Rodrigo Martínez", "rodrigo.martinez@yahoo.com", "R0dr!g0Mtz", "Chilena", 980);
+            ClientePremium clienteP4 = new ClientePremium("4567890-9", "Andrea Gómez", "andrea.gomez@gmail.com", "AndGm#2025", "Paraguaya", 1720);
+            ClientePremium clienteP5 = new ClientePremium("5678901-1", "Felipe Torres", "felipe.torres@outlook.com", "F3l1p3_T!", "Brasileña", 3000);
+
             // Clientes Ocasionales
-            AltaCliente(new ClienteOcasional("lucia.mendez@gmail.com", "Lm3nd3z!", "8765432-7", "Lucía Méndez", "Uruguaya", true));
-            AltaCliente(new ClienteOcasional("julieta.alvarez@outlook.com", "J4lv@r3z!", "6543210-9", "Julieta Álvarez", "Chilena", true));
-            AltaCliente(new ClienteOcasional("dario.fernandez@gmail.com", "D@r_F3rn", "5432109-8", "Darío Fernández", "Paraguaya", false));
-            AltaCliente(new ClienteOcasional("tomas.rivera@yahoo.com", "T0ma$R2025", "7654321-4", "Tomás Rivera", "Argentina", false));
-            AltaCliente(new ClienteOcasional("sofia.rojas@hotmail.com", "S0fi@R#", "4321098-5", "Sofía Rojas", "Brasileña", true));
+            ClienteOcasional clienteO1 = new ClienteOcasional("8765432-7", "Lucía Méndez", "lucia.mendez@gmail.com", "Lm3nd3z!", "Uruguaya", true);
+            ClienteOcasional clienteO2 = new ClienteOcasional("6543210-9", "Julieta Álvarez", "julieta.alvarez@outlook.com", "J4lv@r3z!", "Chilena", true);
+            ClienteOcasional clienteO3 = new ClienteOcasional("5432109-8", "Darío Fernández", "dario.fernandez@gmail.com", "D@r_F3rn", "Paraguaya", false);
+            ClienteOcasional clienteO4 = new ClienteOcasional("7654321-4", "Tomás Rivera", "tomas.rivera@yahoo.com", "T0ma$R2025", "Argentina", false);
+            ClienteOcasional clienteO5 = new ClienteOcasional("4321098-5", "Sofía Rojas", "sofia.rojas@hotmail.com", "S0fi@R#", "Brasileña", true);
+
+            // Alta
+            AltaCliente(clienteP1);
+            AltaCliente(clienteP2);
+            AltaCliente(clienteP3);
+            AltaCliente(clienteP4);
+            AltaCliente(clienteP5);
+            AltaCliente(clienteO1);
+            AltaCliente(clienteO2);
+            AltaCliente(clienteO3);
+            AltaCliente(clienteO4);
+            AltaCliente(clienteO5);
         }
 
         private void PrecargarAdministradores()
@@ -162,64 +193,64 @@ namespace Dominio
 
         }
         
-        private void PrecargarVuelos()
-        {
-            AltaVuelo(new Vuelo()); 1.AR123, Ruta 1, Avión 1, [1, 3, 5]
-2.LA456, Ruta 2, Avión 2, [2, 4, 6]
-3.G3789, Ruta 3, Avión 3, [1, 2, 5]
-4.CM321, Ruta 4, Avión 4, [3, 5, 7]
-5.UX654, Ruta 5, Avión 1, [4, 6, 7]
-6.IB987, Ruta 6, Avión 2, [1, 3, 6]
-7.AF246, Ruta 7, Avión 3, [2, 5, 7]
-8.AZ135, Ruta 8, Avión 4, [1, 4, 6]
-9.LH753, Ruta 9, Avión 1, [3, 5, 7]
-10.KL369, Ruta 10, Avión 2, [2, 4, 6]
-11.TP852, Ruta 11, Avión 3, [1, 3, 6]
-12.IB320, Ruta 12, Avión 4, [2, 5, 7]
-13.EK999, Ruta 13, Avión 1, [1, 3, 5]
-14.QR111, Ruta 14, Avión 2, [2, 4, 6]
-15.UA777, Ruta 15, Avión 3, [1, 5, 7]
-16.AR200, Ruta 16, Avión 4, [3, 5, 7]
-17.LA330, Ruta 17, Avión 1, [2, 4, 6]
-18.CM880, Ruta 18, Avión 2, [1, 3, 6]
-19.UX503, Ruta 19, Avión 3, [2, 5, 7]
-20.IB408, Ruta 20, Avión 4, [1, 3, 6]
-21.BA543, Ruta 21, Avión 1, [1, 4, 6]
-22.LH999, Ruta 22, Avión 2, [2, 5, 7]
-23.AF300, Ruta 23, Avión 3, [3, 6]
-24.TP411, Ruta 24, Avión 4, [1, 3, 6]
-25.EK765, Ruta 25, Avión 1, [2, 4, 6]
-26.QR876, Ruta 26, Avión 2, [1, 3, 5]
-27.DL777, Ruta 27, Avión 3, [3, 5, 7]
-28.UX654, Ruta 28, Avión 4, [2, 4, 6]
-29.G3789, Ruta 29, Avión 1, [1, 3, 5]
-30.CM321, Ruta 30, Avión 2, [2, 5, 7]
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
-            AltaVuelo(new Vuelo());
+//        private void PrecargarVuelos()
+//        {
+//            AltaVuelo(new Vuelo()); 1.AR123, Ruta 1, Avión 1, [1, 3, 5]
+//2.LA456, Ruta 2, Avión 2, [2, 4, 6]
+//3.G3789, Ruta 3, Avión 3, [1, 2, 5]
+//4.CM321, Ruta 4, Avión 4, [3, 5, 7]
+//5.UX654, Ruta 5, Avión 1, [4, 6, 7]
+//6.IB987, Ruta 6, Avión 2, [1, 3, 6]
+//7.AF246, Ruta 7, Avión 3, [2, 5, 7]
+//8.AZ135, Ruta 8, Avión 4, [1, 4, 6]
+//9.LH753, Ruta 9, Avión 1, [3, 5, 7]
+//10.KL369, Ruta 10, Avión 2, [2, 4, 6]
+//11.TP852, Ruta 11, Avión 3, [1, 3, 6]
+//12.IB320, Ruta 12, Avión 4, [2, 5, 7]
+//13.EK999, Ruta 13, Avión 1, [1, 3, 5]
+//14.QR111, Ruta 14, Avión 2, [2, 4, 6]
+//15.UA777, Ruta 15, Avión 3, [1, 5, 7]
+//16.AR200, Ruta 16, Avión 4, [3, 5, 7]
+//17.LA330, Ruta 17, Avión 1, [2, 4, 6]
+//18.CM880, Ruta 18, Avión 2, [1, 3, 6]
+//19.UX503, Ruta 19, Avión 3, [2, 5, 7]
+//20.IB408, Ruta 20, Avión 4, [1, 3, 6]
+//21.BA543, Ruta 21, Avión 1, [1, 4, 6]
+//22.LH999, Ruta 22, Avión 2, [2, 5, 7]
+//23.AF300, Ruta 23, Avión 3, [3, 6]
+//24.TP411, Ruta 24, Avión 4, [1, 3, 6]
+//25.EK765, Ruta 25, Avión 1, [2, 4, 6]
+//26.QR876, Ruta 26, Avión 2, [1, 3, 5]
+//27.DL777, Ruta 27, Avión 3, [3, 5, 7]
+//28.UX654, Ruta 28, Avión 4, [2, 4, 6]
+//29.G3789, Ruta 29, Avión 1, [1, 3, 5]
+//30.CM321, Ruta 30, Avión 2, [2, 5, 7]
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
+//            AltaVuelo(new Vuelo());
 
-        }
+//        }
         private void PrecargarPasajes()
         {
          

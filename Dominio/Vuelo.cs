@@ -17,6 +17,10 @@ namespace Dominio
             get { return _frecuencia; }
         }
 
+        public Ruta Ruta
+        {
+            get { return _ruta; }
+        }
 
         public Vuelo(string codigoVuelo, Ruta ruta, Avion avion, List<DiasSemana> frecuencia)
         {

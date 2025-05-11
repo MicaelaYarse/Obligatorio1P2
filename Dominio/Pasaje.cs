@@ -34,13 +34,16 @@ namespace Dominio
            
 
         }
-        // Costo base = costo x asiento
-        // costo base + 25% margen ganancias + 10% equipaje cabina o 20% equipaje bodega.
-        // Clientes premium solo pagan 5% por equipaje bodega
-        // Se debe tener en cuenta tasas aeroportuarias
+
         public override bool Equals(object? obj)
         {
             return obj is Pasaje otroPasaje && _idPasaje == otroPasaje._idPasaje;
+        }
+
+        public decimal CalcularPrecio()
+        {
+
+            return _precio;
         }
     }
 }

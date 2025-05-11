@@ -18,7 +18,14 @@ namespace Dominio
         {
             get { return _distancia; }
         }
-
+        public Aeropuerto AeropuertoSalida
+        {
+            get { return _aeropuertoSalida; }
+        }
+        public Aeropuerto AeropuertoLlegada
+        {
+            get { return _aeropuertoLlegada; }
+        }
         public Ruta(Aeropuerto aeropuertoSalida, Aeropuerto aeropuertoLlegada, double distancia)
         {
             ultId++;
@@ -36,7 +43,7 @@ namespace Dominio
             if (_aeropuertoLlegada == null)
                 throw new Exception("La ruta debe tener un aeropuerto de llegada.");
 
-           
+
             if (_aeropuertoSalida.CodigoIATA == _aeropuertoLlegada.CodigoIATA)
                 throw new Exception("El aeropuerto de salida y llegada no pueden ser el mismo.");
 
@@ -50,5 +57,5 @@ namespace Dominio
 
     }
 
-    }
+}
 

@@ -9,7 +9,7 @@ namespace Dominio
     public enum TipoEquipaje
     {
         LIGHT,
-        CABINA ,
+        CABINA,
         BODEGA 
     }
 }
